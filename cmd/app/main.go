@@ -1,17 +1,17 @@
 package main
 
 import (
+	"log"
+
+	_ "github.com/WaceraMercyThird/go_gin_project_swagger/cmd/app/docs"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // @title Documenting API (Report)
 // @version 1
-// @Description Sample description
 
-// @contact.name MWacera
-// @contact.url https:github.com/WaceraMercyThird
-// @contact.email waceraaamercy@gmail.com
-// @
 
 
 // @host localhost:8080
@@ -23,7 +23,20 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.GET("/ping", func(c *gin.Context) { 
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	err := router.Run()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+
+func routermain() {
+	router := gin.Default()
+
+	router.GET("/swagger", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
